@@ -69,6 +69,11 @@ git remote -v
 git remote set-url origin https://github.com/USERNAME/REPOSITORY.git
 ```
 
+### 🔄 Alte Remote entfernen
+```
+git remote remove origin
+```
+
 ---
 
 ## 🚀 4. Änderungen hochladen & herunterladen
