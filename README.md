@@ -262,7 +262,30 @@ Wenn Merge-Konflikte auftreten:
    git add .
    git commit -m "Konflikt behoben"
    ```
+## Commits löschen und Branch zurücksetzen
 
+Wenn ein bestimmter Commit rückgängig gemacht oder aus der Historie entfernt werden soll, kannst du folgende Befehle verwenden:
+
+1. Zeige die letzten Commits an
+```
+git log --oneline
+   
+```
+2. Setze den Branch hart auf einen früheren Commit zurück  
+Ersetze `<Commit-SHA>` durch die ID des gewünschten Commits (z. B. `a1b2c3d`):
+```
+git reset --hard <Commit-SHA>
+   
+```
+3. Synchronisiere den Remote-Branch mit dem lokalen Stand  
+Verwende `--force-with-lease`, um mögliche Konflikte zu erkennen und dennoch sicher zu überschreiben:  
+```
+git push --force-with-lease
+   
+```
+> **Achtung:**  
+> - Ein **Hard Reset** verwirft alle Änderungen seit dem angegebenen Commit unwiderruflich.  
+> - Ein **Force Push** überschreibt den Remote-Branch und kann die Arbeit anderer Entwickler beeinträchtigen. Stelle sicher, dass du die Historie ändern darfst und sichere wichtige Änderungen vorab (z. B. mit `git stash`).  
 ---
 
 **© 2025 – Git Lern- und Arbeitsdokument von Anas Alnabulsi**  
