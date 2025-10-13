@@ -28,7 +28,41 @@ git config --global user.email "deine.email@example.com"
 ```
 git config --list
 ```
+# Git Commit Author Korrektur
 
+Anweisungen, um nachträglich die Autorendaten (Name und E-Mail) aller Git-Commits zu ändern.
+
+1. Git-Konfiguration anpassen
+```bash
+git config user.name "Mohamad Anas Alnabulsi"
+git config user.email "mohamadanas.alnabulsi@gmx.de"
+```
+Legt den korrekten Autorennamen und die E-Mail-Adresse in der aktuellen Git-Konfiguration fest. Nachfolgende Commits verwenden diese Daten.
+
+2. Letzten Commit aktualisieren (optional)
+```bash
+git commit --amend --reset-author --no-edit
+```
+Setzt den Autor des zuletzt erstellten Commits neu auf die in der Git-Konfiguration hinterlegten Daten, ohne die Commit-Nachricht zu ändern.
+
+3. Alle Commits im Projekt korrigieren
+```bash
+git rebase -r --root --exec 'git commit --amend --reset-author --no-edit'
+```
+- `--root`: Beginnt den Rebase beim allerersten Commit im Repository.
+- `-r` (alias `--rebase-merges`): Erlaubt das Rebasen von Merge-Commits.
+- `--exec '<Befehl>'`: Führt für jeden Commit den angegebenen Befehl aus, hier um den Autor zurückzusetzen.
+
+4. Geänderte Commits auf das Remote-Repository übertragen
+```bash
+git push origin main --force
+```
+Da sich durch die Historienumschreibung die Commit-Hashes ändern, ist ein `--force`-Push notwendig. Achtung: Überschreibt die Historie auf dem Remote und kann für andere Mitwirkende zu Konflikten führen.
+
+## Hinweise
+
+- Vor einem Force-Push sollten alle Teammitglieder informiert werden und ihre lokalen Branches sichern.
+- Für private oder Einzelprojekte ist das Risiko gering, dennoch ist eine Sicherung empfehlenswert.
 ---
 
 ## 🏗️ 2. Neues Projekt starten
@@ -262,7 +296,7 @@ Wenn Merge-Konflikte auftreten:
    git add .
    git commit -m "Konflikt behoben"
    ```
-## Commits löschen und Branch zurücksetzen
+## 11. Commits löschen und Branch zurücksetzen
 
 Wenn ein bestimmter Commit rückgängig gemacht oder aus der Historie entfernt werden soll, kannst du folgende Befehle verwenden:
 
@@ -287,6 +321,8 @@ git push --force-with-lease
 > - Ein **Hard Reset** verwirft alle Änderungen seit dem angegebenen Commit unwiderruflich.  
 > - Ein **Force Push** überschreibt den Remote-Branch und kann die Arbeit anderer Entwickler beeinträchtigen. Stelle sicher, dass du die Historie ändern darfst und sichere wichtige Änderungen vorab (z. B. mit `git stash`).  
 ---
+
+
 
 **© 2025 – Git Lern- und Arbeitsdokument von Anas Alnabulsi**  
 *Struktur, Ordnung und Klarheit sind die Basis erfolgreicher Softwareentwicklung.*
